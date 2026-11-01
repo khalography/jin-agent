@@ -38,3 +38,9 @@ The mint is scheduled for November 2, 2026 at 08:00 UTC (`opensAt = 1793606400`)
 ## Maintaining content
 
 Keep `index.html`, translations in `app.js`, `llms.txt`, and `launch-spec.md` consistent. Token allocation is 1,000 JIN per unit; 4,444 free units plus 10,000 paid units, maximum 14,444,000 JIN. Pool opening at 10,000 paid units is manual, not an automatic contract action.
+
+## Images, layout and language
+
+The mascot uses responsive 400/640/960-pixel WebP assets. The hero has high fetch priority; the collectible image loads lazily. Explicit dimensions reserve space while decoding. Original PNG artwork is retained for editing, but is not requested by the page. The collectible card sizes to its own content.
+
+Step icons are inline SVG wallet, identity verification and token allocation symbols. The site opts out of automatic browser translation because it provides its own Chinese/English toggle. Countdown ticks update the button without replacing static translated content; static wallet and launch labels update only when their state changes.

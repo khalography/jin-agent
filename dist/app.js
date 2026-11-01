@@ -7,13 +7,12 @@ let mintReady=false;
 const zh={};document.querySelectorAll('[data-t]').forEach(el=>zh[el.dataset.t]=el.innerHTML);
 let lang='zh',mode='paid',account=null,busy=false,provider,contract,ethers;
 const cfg=window.JIN_CONFIG,qty=document.querySelector('#quantity');
-let confirmedOpening=0,publicRefreshBusy=false;
+let confirmedOpening=0,publicRefreshBusy=false,lastWalletViewKey="";
 const plannedOpening=Number(cfg.launchTime)||0;
 const say=(cn,eng)=>document.querySelector('#walletStatus').textContent=lang==='zh'?cn:eng;
 function setQuantity(value){const max=mode==='free'?1:9;qty.value=Math.max(1,Math.min(max,Math.trunc(Number(value)||1)));renderQuantity();}
 function renderQuantity(){const n=Number(qty.value);document.querySelector('#receive').textContent=(n*1000).toLocaleString('en-US')+' JIN';document.querySelector('#cost').textContent=mode==='free'?'0':(n*2/1000).toFixed(3);document.querySelector('#minus').disabled=n<=1||mode==='free';document.querySelector('#plus').disabled=n>=(mode==='free'?1:9);document.querySelectorAll('[data-qty]').forEach(b=>{b.classList.toggle('selected',Number(b.dataset.qty)===n);b.disabled=mode==='free'});document.querySelector('#quotaText').textContent=mode==='free'?(lang==='zh'?'每个 Agent ID 最多 1 份':'1 free unit per Agent ID'):(lang==='zh'?'每个 Agent ID 最多 9 份':'Up to 9 paid units per Agent ID');qty.readOnly=mode==='free';renderAgentPrompt();}
 function renderWallet(){
- document.querySelector('header .wallet').textContent=account?account.slice(0,6)+'…'+account.slice(-4):(lang==='zh'?'连接钱包':'Connect wallet');
  const opening=confirmedOpening||plannedOpening,remaining=Math.max(0,opening-Math.floor(Date.now()/1000));
  mintReady=confirmedOpening>0&&remaining===0;
  const button=document.querySelector('#mintButton');button.disabled=busy||!mintReady;
@@ -23,6 +22,11 @@ function renderWallet(){
   const clock=[hours,minutes,seconds].map(n=>String(n).padStart(2,'0')).join(':');
   button.textContent=(lang==='zh'?'距铸造开启 ':'Mint opens in ')+(days?days+(lang==='zh'?'天 ':'d '):'')+clock;
  }else button.textContent=!mintReady?(lang==='zh'?'等待链上开铸确认':'Awaiting on-chain opening'):(account?(lang==='zh'?'核验并铸造':'Verify & mint'):(lang==='zh'?'连接钱包铸造':'Connect wallet to mint'));
+ // Countdown ticks must not rewrite translated/static content every second.
+ const viewKey=[lang,account,busy,mintReady,opening].join('|');
+ if(viewKey===lastWalletViewKey)return;
+ lastWalletViewKey=viewKey;
+ document.querySelector('header .wallet').textContent=account?account.slice(0,6)+'…'+account.slice(-4):(lang==='zh'?'连接钱包':'Connect wallet');
  const date='2026-11-02 08:00 UTC';
  en.prelaunch=mintReady?'MINT OPEN':'OPENS '+date;zh.prelaunch=mintReady?'铸造已开启':'开启时间 '+date;
  en.notDeployed=mintReady?'Deployed · Mint open':'Deployed · Opens '+date;zh.notDeployed=mintReady?'已部署 · 铸造已开启':'已部署 · '+date+' 开启';
