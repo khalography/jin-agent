@@ -45,3 +45,8 @@ TOKENS_PER_UNIT() view returns (uint256)
 Independent community project; no Binance affiliation or endorsement. No automatic liquidity, listing, returns, or refund promise. Mint proceeds are withdrawable by the immutable treasury. See /launch-spec.md.
 
 Schedule transaction: https://bscscan.com/tx/0x675e335e87ea6dbd1307345d1b12d64d7739fc4ff3e4bbd1f2a8daed445fbae9
+
+## Unified total-quantity selection
+The website quantity is the TOTAL number of units requested, including a free unit, not paid units plus an extra free unit. If the Agent ID has an unclaimed free unit and free supply remains, allocate one selected unit as free and the remaining total-minus-one as paid. Otherwise all selected units are paid, subject to quota and the user's explicit payment ceiling. Every unit delivers 1,000 JIN.
+Claim the free unit first, with simulation and wallet approval, then wait for its successful receipt before simulating and requesting approval for the paid remainder. For a total of one with a successful free claim, do not send a paid transaction. Mixed selections require two transactions with separate gas and approvals. If the free claim fails, free supply disappears, or quoted eligibility changes, stop and ask before increasing payment. If free succeeds and paid fails, retain transaction hashes, verify receipts and updated quota, then retry only the unfinished paid portion. Never repeat a confirmed free claim or paid mint. Never mint more total units than requested.
+The website's X share step is a self-confirmed prompt gate when a selection may include a free unit. It is not on-chain eligibility or proof that a tweet exists. Always independently verify identity, supply, launch time and quotas.

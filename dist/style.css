@@ -66,3 +66,5 @@ html[data-theme="dark"]{color-scheme:dark;--bg:#111410;--ink:#f2f0e7;--muted:#b1
 .share-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.share-actions .primary{font-size:12px;padding:11px 16px;gap:0}
 .share-confirm{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:10px 14px;font-size:12px}
 .share-gate small{display:block;font-size:10px;line-height:1.7;color:var(--muted);margin-top:13px}
+
+.allocation-note{font-size:11px;line-height:1.8;color:var(--muted);padding:12px 14px;border:1px solid var(--line);border-radius:7px;margin:0 0 20px}.allocation-breakdown strong{font-size:12px!important}

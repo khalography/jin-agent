@@ -47,4 +47,8 @@ Step icons are inline SVG wallet, identity verification and token allocation sym
 
 ## Free-claim sharing step
 
-Selecting Free claim gates the agent prompt behind Post on X, followed by the user selecting I’ve posted. The prefilled post opens in a new tab and includes the site URL. Confirmation lasts for the current page session. Paid prompts stay available. This is a self-confirmed website prompt gate: no X API verification, wallet signature, contract change or on-chain eligibility restriction is added.
+A total-quantity selection that may include a free unit gates the agent prompt behind Post on X, followed by the user selecting I’ve posted. The prefilled post opens in a new tab and includes the site URL. Confirmation lasts for the current page session. Confirmed paid-only prompts stay available. This is a self-confirmed website prompt gate: no X API verification, wallet signature, contract change or on-chain eligibility restriction is added.
+
+## Unified mint card (local review)
+One quantity represents total units received. The quote includes at most one available/unclaimed free unit; remaining units cost 0.002 BNB each. Until a live ID quota check succeeds, the estimate is explicitly conditional. The ID owner is resolved from the fixed registry, then eligibility is queried against that owner (or the connected wallet); agents must independently verify ownership. MAX follows available quota. Over-quota selections cannot copy prompts. Unknown eligibility uses a conservative payment ceiling based on the displayed free-first quote; an agent must ask before increasing it.
+The mint-card action takes users to the agent prompt. Header wallet connection remains optional for checking the connected wallet. No mint transaction is sent by this card. X sharing applies whenever a selection may include a free unit. The prompt specifies sequential free then paid transactions, receipt tracking, and stopping before any unapproved payment increase.
