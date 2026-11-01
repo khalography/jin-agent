@@ -58,3 +58,11 @@ html[data-theme="dark"]{color-scheme:dark;--bg:#111410;--ink:#f2f0e7;--muted:#b1
 @media(max-width:640px){.collectible{height:auto;max-height:none;padding:4px 20px 20px}.collectible img{width:min(100%,320px)}.step-icon{width:42px;height:42px}.step-icon svg{width:25px;height:25px}}
 
 .decorative-bnb{display:inline-block;width:1em;height:1em;vertical-align:middle;object-fit:contain}.tag-icon,.floating-star,.section-spark{line-height:1}
+
+[hidden]{display:none!important}
+.share-gate{border:1px solid var(--line);border-radius:8px;padding:20px;background:var(--white)}
+.share-gate-heading{display:flex;align-items:center;gap:10px}.share-x{font-size:23px;color:var(--ink)}.share-gate strong{font-size:13px;line-height:1.6}
+.share-gate p{font-size:12px;line-height:1.85;color:var(--muted);margin:12px 0 18px}
+.share-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.share-actions .primary{font-size:12px;padding:11px 16px;gap:0}
+.share-confirm{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:10px 14px;font-size:12px}
+.share-gate small{display:block;font-size:10px;line-height:1.7;color:var(--muted);margin-top:13px}

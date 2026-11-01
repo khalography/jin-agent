@@ -4,6 +4,7 @@ Object.assign(en,{poolMilestone:'Pool opens at 10,000 mints',poolMilestoneNote:'
 Object.assign(en,{agentHandleLabel:'Binance Agent ID (.ai name)',agentHandleHint:'Enter the Agent ID claimed inside the Binance App'});
 Object.assign(en,{prelaunch:'TBA · MINT CLOSED',pendingData:'Reading on-chain status…',launchNote:'Contract deployed and source verified. Mint opening is TBA; minting is closed.',notDeployed:'Deployed · Mint closed',a1:'Wallets holding a .ai Agent ID claimed inside the Binance App can participate. Each mint checks name ownership and remaining quota on-chain.',a3:'The contract is deployed, but minting has not opened. Opening time is TBA. No mint transaction is submitted before opening.',verifiedContract:'Contract & verification',verifiedSource:'Verified source · Sourcify'});
 let mintReady=false;
+let shareStarted=false,shareConfirmed=false;
 const zh={};document.querySelectorAll('[data-t]').forEach(el=>zh[el.dataset.t]=el.innerHTML);
 let lang='zh',mode='paid',account=null,busy=false,provider,contract,ethers;
 const cfg=window.JIN_CONFIG,qty=document.querySelector('#quantity');
@@ -56,8 +57,10 @@ function renderAgentPrompt(){
  ?`请阅读 ${origin}/llms.txt，帮助我用当前连接的钱包在 BNB Smart Chain（Chain ID 56）参与「金小灵 JIN Agent」铸造。${identityHint}先检查上线状态、已验证合约、Agent ID 资格、剩余额度及供应。${action}合约地址只使用官方配置中已核验的地址；若尚未部署或信息缺失，立即停止，不要猜测地址或发起付款。每笔交易先模拟，向我展示操作、合约地址、金额与 Gas 估算，再让我在钱包中确认签名。不要索取私钥或助记词。`
  :`Read ${origin}/llms.txt and help me participate in the JIN Agent mint with my currently connected wallet on BNB Smart Chain (chain ID 56). ${identityHint} First check launch status, the verified contract, Agent ID eligibility, remaining quota, and supply. ${action} Use only the verified contract address in the official configuration. If the contract is not deployed or required information is missing, stop; do not guess an address or send payment. Simulate every transaction, show me the action, contract address, payment and estimated gas, then ask me to confirm in my wallet. Never request my private key or recovery phrase.`;
  document.querySelector('#promptStatus').textContent='';
+ renderShareGate();
 }
 document.querySelector('#copyPrompt').addEventListener('click',async()=>{
+ if(mode==='free'&&!shareConfirmed)return;
  const field=document.querySelector('#agentPrompt'),status=document.querySelector('#promptStatus');
  try{await navigator.clipboard.writeText(field.value);status.textContent=lang==='zh'?'已复制，发送给你的 AI Agent 即可。':'Copied. Send it to your AI agent.';}
  catch{field.focus();field.select();status.textContent=lang==='zh'?'提示词已选中，请手动复制。':'Prompt selected. Copy it manually.';}
@@ -107,3 +110,26 @@ document.querySelector('#themeToggle').addEventListener('click',()=>{
  renderTheme();
 });
 renderTheme();
+
+// A self-confirmed share unlocks only the free-claim prompt.
+function renderShareGate(){
+ const free=mode==='free',locked=free&&!shareConfirmed,cn=lang==='zh';
+ document.querySelector('#shareGate').hidden=!locked;
+ document.querySelector('#agentPrompt').hidden=locked;
+ document.querySelector('#copyPrompt').disabled=locked;
+ document.querySelector('#shareTitle').textContent=cn?'分享后，领取你的免费铸造提示词':'Share to unlock your free mint prompt';
+ document.querySelector('#shareDescription').textContent=cn?'在 X 分享金小灵铸造。发布后返回，点击「我已发布」即可解锁提示词。':'Share the JIN mint on X. After posting, return here and select “I’ve posted” to unlock your prompt.';
+ const share=document.querySelector('#shareOnX');share.textContent=cn?'在 X 发布':'Post on X';
+ const configuredOrigin=location.hostname==='localhost'||location.hostname==='127.0.0.1'?'https://jin-agent-id.ivorydulse1.chatgpt.site':location.origin;
+ const tweet=cn?'我正在参与金小灵 JIN Agent 铸造！Binance .ai Agent ID 持有者可领取 1 份免费额度，每份 1,000 JIN。付费铸造每份 0.002 BNB，Gas 另计。#JINAgent #BNBChain':'I’m joining the JIN Agent mint! Binance .ai Agent ID holders can claim 1 free unit of 1,000 JIN. Paid units cost 0.002 BNB each. Network gas applies. #JINAgent #BNBChain';
+ share.href='https://twitter.com/intent/tweet?'+new URLSearchParams({text:tweet,url:configuredOrigin+'/#mint'});
+ const confirm=document.querySelector('#confirmShare');confirm.textContent=cn?'我已发布':'I’ve posted';confirm.disabled=!shareStarted;
+ document.querySelector('#shareHint').textContent=shareStarted?(cn?'完成发布后，返回此处确认。':'Finish your post, then return here to confirm.'):(cn?'先点击「在 X 发布」。':'Start by selecting “Post on X”.');
+}
+document.querySelector('#shareOnX').addEventListener('click',()=>{shareStarted=true;renderShareGate();});
+document.querySelector('#confirmShare').addEventListener('click',()=>{
+ if(!shareStarted)return;
+ shareConfirmed=true;renderShareGate();
+ document.querySelector('#promptStatus').textContent=lang==='zh'?'感谢分享！现在可以复制免费铸造提示词。':'Thanks for sharing! Your free mint prompt is ready to copy.';
+ document.querySelector('#copyPrompt').focus();
+});

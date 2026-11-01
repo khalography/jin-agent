@@ -44,3 +44,7 @@ Keep `index.html`, translations in `app.js`, `llms.txt`, and `launch-spec.md` co
 The mascot uses responsive 400/640/960-pixel WebP assets. The hero has high fetch priority; the collectible image loads lazily. Explicit dimensions reserve space while decoding. Original PNG artwork is retained for editing, but is not requested by the page. The collectible card sizes to its own content.
 
 Step icons are inline SVG wallet, identity verification and token allocation symbols. The site opts out of automatic browser translation because it provides its own Chinese/English toggle. Countdown ticks update the button without replacing static translated content; static wallet and launch labels update only when their state changes.
+
+## Free-claim sharing step
+
+Selecting Free claim gates the agent prompt behind Post on X, followed by the user selecting I’ve posted. The prefilled post opens in a new tab and includes the site URL. Confirmation lasts for the current page session. Paid prompts stay available. This is a self-confirmed website prompt gate: no X API verification, wallet signature, contract change or on-chain eligibility restriction is added.
