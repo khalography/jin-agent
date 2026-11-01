@@ -16,6 +16,10 @@
 
 These are recorded deployment facts. Query current chain state before any action; the documentation is not a live status feed.
 
+## Requested opening
+
+The owner selected November 2, 2026 at 08:00 UTC (09:00 Africa/Lagos), Unix timestamp `1793606400`. The frontend countdown is configured. On-chain scheduling is pending owner signing; do not treat the countdown as proof that `scheduleMint` has been executed. Binance Wallet API requests timed out during preparation. Re-read `opensAt()` and preview the transaction before requesting final broadcast approval.
+
 ## Open minting only when instructed
 
 1. Obtain the explicit opening date, time and timezone from the owner. Convert that time to Unix seconds and show the human-readable value and timestamp for review.

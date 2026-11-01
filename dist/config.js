@@ -1,1 +1,1 @@
-window.JIN_CONFIG = Object.freeze({chainId:56,mintAddress:'0x086Ab11dF23e8FD37398C41180466D24d85ed5FB',rpcUrl:'https://bsc-rpc.publicnode.com',snapshot:{freeMinted:0,paidMinted:0,opensAt:0,blockNumber:131050353}});
+window.JIN_CONFIG = Object.freeze({chainId:56,mintAddress:'0x086Ab11dF23e8FD37398C41180466D24d85ed5FB',rpcUrl:'https://bsc-rpc.publicnode.com',launchTime:1793606400,snapshot:{freeMinted:0,paidMinted:0,opensAt:0,blockNumber:131050353}});
