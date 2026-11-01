@@ -8,3 +8,38 @@
 .pool-milestone{display:flex;align-items:center;gap:12px;background:#f8f3dd;border:1px solid #eee2b6;border-radius:7px;padding:13px 15px;margin:0 0 19px}.pool-milestone strong{display:block;font-size:12px;font-weight:600;color:#6c602d}.pool-milestone small{display:block;font-size:9px;color:#a19361;margin-top:5px}
 
 .identity-field{margin:0 0 22px}.identity-field label{display:block;font-size:11px;margin-bottom:10px}.identity-field input{width:100%;padding:12px 14px;border:1px solid #e3e4d8;border-radius:6px;background:#fffef9;color:#303326;font-size:13px}.identity-field small{display:block;font-size:9px;color:#969b87;margin-top:7px}
+
+/* Theme: dark on first visit; explicit light preference is retained. */
+:root{color-scheme:light}
+.theme-toggle{display:inline-flex;align-items:center;gap:6px;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:transparent;color:var(--ink);white-space:nowrap;font-size:12px}
+.lang{color:var(--ink)}
+.primary{color:#262821}
+html[data-theme="dark"]{color-scheme:dark;--bg:#111410;--ink:#f2f0e7;--muted:#b1b6a7;--line:#343b30;--white:#1b2119}
+[data-theme="dark"] .intro,[data-theme="dark"] .section-heading p,[data-theme="dark"] .hero-note,[data-theme="dark"] .stat-strip small,[data-theme="dark"] .stat-strip em,[data-theme="dark"] .collection-caption p,[data-theme="dark"] .collection-caption b,[data-theme="dark"] .status-line,[data-theme="dark"] .muted,[data-theme="dark"] .quantity-label>span,[data-theme="dark"] .cost>div,[data-theme="dark"] .gas-note,[data-theme="dark"] .steps p,[data-theme="dark"] .rules-intro p,[data-theme="dark"] .rules-table>div>span,[data-theme="dark"] .rules-table small,[data-theme="dark"] .faq-section>div>p,[data-theme="dark"] details p,[data-theme="dark"] footer,[data-theme="dark"] footer>a:last-child,[data-theme="dark"] .agent-copy p,[data-theme="dark"] .agent-prompt label,[data-theme="dark"] .identity-field small{color:#b1b6a7}
+[data-theme="dark"] .small{background:#eee9d9;color:#1b2119}
+[data-theme="dark"] .orbital{border-color:#39412f}
+[data-theme="dark"] .dot{box-shadow:0 0 0 4px #38321a}
+[data-theme="dark"] .mascot,[data-theme="dark"] .collectible img{mix-blend-mode:normal}
+[data-theme="dark"] .mascot{box-shadow:0 0 80px #e4b72c12}
+[data-theme="dark"] .identity-tag{background:#242b21f5;border-color:#49513d;box-shadow:0 13px 35px #0005}
+[data-theme="dark"] .identity-tag small{color:#bbc1ac}
+[data-theme="dark"] .tag-check{background:#38432a;color:#c6d997}
+[data-theme="dark"] .genesis-card{background:#20271d;border-color:var(--line)}
+[data-theme="dark"] .mint-card,[data-theme="dark"] .collection-caption,[data-theme="dark"] .quantity-control,[data-theme="dark"] .cost,[data-theme="dark"] .rules-table>div{border-color:var(--line)}
+[data-theme="dark"] .pill{color:#c3c8b5;border-color:#48513c}
+[data-theme="dark"] .chain-badge,[data-theme="dark"] .mint-tabs,[data-theme="dark"] .progress-track,[data-theme="dark"] .quantity-control button,[data-theme="dark"] .presets button{background:#2a3225;color:#c0c7b2}
+[data-theme="dark"] .mint-tabs button{color:#bcc3b0}
+[data-theme="dark"] .mint-tabs button.selected{background:#465039;color:#fff8de}
+[data-theme="dark"] .presets button.selected{background:#40371b;border-color:#a58b33;color:#f4ca45}
+[data-theme="dark"] .cost strong{color:var(--ink)}
+[data-theme="dark"] .launch-note,[data-theme="dark"] .pool-milestone{background:#302b18;border-color:#554a23;color:#dfcc88}
+[data-theme="dark"] .pool-milestone strong{color:#f0d778}
+[data-theme="dark"] .pool-milestone small{color:#c1b27c}
+[data-theme="dark"] .rules-section,[data-theme="dark"] .agent-mint{background:#1e271b;border-color:var(--line)}
+[data-theme="dark"] .agent-prompt textarea,[data-theme="dark"] .identity-field input{background:#151b13;border-color:#414b36;color:#dee4cf}
+[data-theme="dark"] #promptStatus{color:#c0d69b}
+[data-theme="dark"] .step-icon,[data-theme="dark"] .section-spark{color:#a9b695}
+[data-theme="dark"] .amber,[data-theme="dark"] nav a:hover,[data-theme="dark"] .text-link:hover{color:#f4ca45}
+@media(max-width:900px){header{gap:16px}nav{gap:12px}.header-actions{gap:10px}}
+@media(max-width:640px){.header-actions{gap:8px}.theme-toggle{padding:8px;font-size:11px;gap:4px}.header-actions .small{padding:10px 8px}.brand{font-size:16px}.brand img{width:29px;height:29px}header{padding:0 14px;gap:8px}}
+@media(max-width:370px){#themeLabel{display:none}.header-actions{gap:6px}}
