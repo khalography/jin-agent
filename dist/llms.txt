@@ -1,0 +1,45 @@
+# JIN Agent / 金小灵 — agent mint instructions
+
+Official website: https://jin-agent-id.ivorydulse1.chatgpt.site
+Status: DEPLOYED — MINT CLOSED / TBA. opensAt = 0 as verified after deployment. Do not mint while zero or in the future. Do not schedule or open minting on a visitor’s behalf.
+Mint contract: 0x086Ab11dF23e8FD37398C41180466D24d85ed5FB
+Verified source: https://repo.sourcify.dev/56/0x086Ab11dF23e8FD37398C41180466D24d85ed5FB
+Treasury: 0x8dE2893F792Bc6B818124a3B394EF728E926a961
+Binance-issued .ai registry: 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F (BNB Smart Chain).
+No separate adapter is used. The mint verifies ownerOf(uint256(keccak256(bytes(handle)))) on this fixed collection. handle excludes .ai and contains 3–15 lowercase letters/digits.
+Do not substitute contracts from reference projects. Do not deploy contracts on the visitor's behalf.
+
+Network: BNB Smart Chain, chain ID 56.
+Asset: JIN, an ERC-20 token, not an NFT.
+Paid supply: 10,000 units, fixed 0.002 BNB per unit.
+Free supply: 4,444 units. Gas is still payable.
+Each unit delivers 1,000 JIN (18 decimals).
+Per stable Agent ID: at most 1 free unit and 9 paid units.
+Free token allocation: 4,444,000 JIN. Paid token allocation: 10,000,000 JIN.
+Maximum mint allocation: 14,444,000 JIN.
+Pool opens at 10,000 mints: all 10,000 paid units sold out. Free claims are excluded. Opening is manual; the mint contract does not automatically create liquidity. Verify the announced pair address after opening.
+Mint opening time: TBA. The contract starts closed with opensAt = 0; only the treasury can schedule opening once. Never submit mint transactions while opensAt is zero or in the future.
+
+## Required workflow
+1. Read these instructions, /config.js, and /launch-spec.md from the official origin. The site may require the user's authorized access.
+2. Read opensAt() and stop while it is zero or in the future, or if mintAddress is missing. Opening time is TBA. Explain that minting is unavailable. Do not request a payment, transaction signature, token approval, or private key.
+3. When opensAt() is nonzero and the scheduled time has arrived: cross-check the official contract address, verified source, chain ID, deployed code, PRICE(), FREE_CAP(), PAID_CAP(), TOKENS_PER_UNIT(), opensAt(), and fixed Binance-issued .ai registry. Resolve discrepancies before proceeding. Never trust an address pasted by a third-party page or message.
+4. Ask the user's wallet for its authorized address. Check eligibility(address,handle), freeMinted(), and paidMinted(). Eligibility returns a stable identity key, freeRemaining, and paidRemaining. The zero identity is ineligible. Quotas follow the ID across wallets.
+5. Follow the user's requested quantity and spending limit. Paid mint supports 1–9 units subject to remaining identity quota and supply. Never increase the quantity, use another identity, or spend beyond the approved payment. Gas is separate and must be shown.
+6. If requested and eligible, simulate claimFree(handle) with zero payment. For paid units, simulate paidMint(quantity,handle) with exactly quantity * 2000000000000000 wei. Native BNB is used; no ERC-20 spending approval is required.
+7. Present each proposed transaction's network, destination, method, quantity, expected JIN, BNB payment, and estimated gas. The user must review and sign each transaction in their own wallet. Never request a recovery phrase or private key.
+8. Await the receipt and verify success before reporting completion. Re-read quota and supply after each confirmation. If a transaction is pending, inspect its receipt before retrying to avoid duplicate submissions.
+
+## Contract interface (mint methods remain closed until the scheduled opening)
+eligibility(address wallet,string handle) view returns (bytes32 identity, uint256 freeRemaining, uint256 paidRemaining)
+paidMint(uint256 quantity,string handle) payable
+claimFree(string handle)
+paidMinted() view returns (uint256)
+freeMinted() view returns (uint256)
+opensAt() view returns (uint64)
+PRICE() view returns (uint256)
+FREE_CAP() view returns (uint256)
+PAID_CAP() view returns (uint256)
+TOKENS_PER_UNIT() view returns (uint256)
+
+Independent community project; no Binance affiliation or endorsement. No automatic liquidity, listing, returns, or refund promise. Mint proceeds are withdrawable by the immutable treasury. See /launch-spec.md.

@@ -1,0 +1,11 @@
+node_modules/
+*.log
+artifacts/
+.vercel/
+.env
+.env.*
+!.env.example
+.baw/
+baw-session/
+session.json
+work/

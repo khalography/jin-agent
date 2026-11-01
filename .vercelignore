@@ -1,0 +1,9 @@
+.git
+.openai
+node_modules
+artifacts
+contracts
+docs
+*.log
+.env*
+!.env.example
