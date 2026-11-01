@@ -18,7 +18,7 @@ These are recorded deployment facts. Query current chain state before any action
 
 ## Requested opening
 
-The owner selected November 2, 2026 at 08:00 UTC (09:00 Africa/Lagos), Unix timestamp `1793606400`. The frontend countdown is configured. On-chain scheduling is pending owner signing; do not treat the countdown as proof that `scheduleMint` has been executed. Binance Wallet API requests timed out during preparation. Re-read `opensAt()` and preview the transaction before requesting final broadcast approval.
+The on-chain opening is confirmed for November 2, 2026 at 08:00 UTC (09:00 Africa/Lagos), Unix timestamp `1793606400`. Transaction [0x675e335e87ea6dbd1307345d1b12d64d7739fc4ff3e4bbd1f2a8daed445fbae9](https://bscscan.com/tx/0x675e335e87ea6dbd1307345d1b12d64d7739fc4ff3e4bbd1f2a8daed445fbae9) succeeded in block `131107341`. Gas used: `45013`; fee: `0.000004964394284156 BNB`. The frontend countdown and fallback snapshot match the confirmed schedule. Scheduling is complete and cannot be repeated, changed or cancelled.
 
 ## Open minting only when instructed
 

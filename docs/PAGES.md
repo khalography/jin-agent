@@ -33,7 +33,7 @@ The `.ai` handle field accepts a name with or without the suffix. The app trims 
 
 Browser wallet support requires an injected EIP-1193 provider (`window.ethereum`). Binance Agentic Wallet users can instead copy the prompt into their wallet-enabled agent; installing the CLI does not automatically inject a provider into the browser.
 
-The mint starts closed (`opensAt = 0`). The button stays disabled until a successful chain read establishes that the scheduled opening has arrived. A failed public RPC read displays a labeled, confirmed snapshot and keeps minting disabled. Agents must independently query `opensAt()` before every mint. A website deployment never opens the on-chain mint.
+The mint is scheduled for November 2, 2026 at 08:00 UTC (`opensAt = 1793606400`). The button stays disabled until a successful chain read establishes that the scheduled opening has arrived. A failed public RPC read displays a labeled, confirmed snapshot and keeps minting disabled. Agents must independently query `opensAt()` before every mint. A website deployment never opens the on-chain mint.
 
 ## Maintaining content
 
