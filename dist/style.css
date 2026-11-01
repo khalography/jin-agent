@@ -56,3 +56,5 @@ html[data-theme="dark"]{color-scheme:dark;--bg:#111410;--ink:#f2f0e7;--muted:#b1
 .step-icon svg{width:27px;height:27px}
 [data-theme="dark"] .step-icon{color:var(--yellow)}
 @media(max-width:640px){.collectible{height:auto;max-height:none;padding:4px 20px 20px}.collectible img{width:min(100%,320px)}.step-icon{width:42px;height:42px}.step-icon svg{width:25px;height:25px}}
+
+.decorative-bnb{display:inline-block;width:1em;height:1em;vertical-align:middle;object-fit:contain}.tag-icon,.floating-star,.section-spark{line-height:1}
