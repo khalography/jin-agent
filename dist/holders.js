@@ -1,9 +1,8 @@
-export function rankedHolders(balances){
- return [...balances].map(([wallet,balance])=>({wallet,balance:BigInt(balance)})).filter(r=>r.balance>0n).sort((a,b)=>a.balance>b.balance?-1:a.balance<b.balance?1:a.wallet.localeCompare(b.wallet));
-}
+import {rankedHolders,applyTransfers} from './holder-ledger.js';
+export {rankedHolders};
 export function startHolders(cfg,getLanguage){
- const $=id=>document.getElementById(id),balances=new Map(),names=new Map();
- let cursor=0,page=0,state='loading',running=false,library,nameRequest=0,targetBlock=0;
+ const $=id=>document.getElementById(id),names=new Map();
+ let balances=new Map(),cursor=0,page=0,state='loading',running=false,library,nameRequest=0,targetBlock=0;
  const size=20,short=a=>a.slice(0,6)+'…'+a.slice(-4);
  function render(){
   const cn=getLanguage()==='zh',rows=rankedHolders(balances),pages=Math.max(1,Math.ceil(rows.length/size));page=Math.min(page,pages-1);
@@ -45,13 +44,17 @@ export function startHolders(cfg,getLanguage){
    library??=await import('./assets/ethers.min.js');
    if(!cursor){const response=await fetch('./holders-snapshot.json',{cache:'no-cache'});if(!response.ok)throw Error('Snapshot unavailable');const snapshot=await response.json();if(snapshot.contractAddress.toLowerCase()!==cfg.mintAddress.toLowerCase()||snapshot.chainId!==cfg.chainId)throw Error('Snapshot mismatch');for(const r of snapshot.holders)balances.set(r.wallet.toLowerCase(),BigInt(r.balance));cursor=snapshot.blockNumber;state='syncing';render();}
    const request=new library.FetchRequest(cfg.rpcUrl);request.timeout=12000;provider=new library.JsonRpcProvider(request,cfg.chainId,{staticNetwork:true});targetBlock=Math.max(cursor,(await provider.getBlockNumber())-2);
-   const to=Math.min(targetBlock,cursor+10000),iface=new library.Interface(['event Transfer(address indexed from,address indexed to,uint256 value)']),touched=new Set();
-   for(let from=cursor+1;from<=to;from+=500){const logs=await provider.getLogs({address:cfg.mintAddress,fromBlock:from,toBlock:Math.min(from+499,to),topics:[iface.getEvent('Transfer').topicHash]});for(const log of logs){const e=iface.parseLog(log);for(const a of [e.args.from,e.args.to])if(a!==library.ZeroAddress)touched.add(a.toLowerCase());}}
-   const token=new library.Contract(cfg.mintAddress,['function balanceOf(address) view returns(uint256)'],provider),addresses=[...touched],updates=[];
-   for(let i=0;i<addresses.length;i+=6)updates.push(...await Promise.all(addresses.slice(i,i+6).map(async a=>[a,await token.balanceOf(a,{blockTag:to})])));
-   for(const [a,b] of updates){if(b>0n)balances.set(a,b);else balances.delete(a);}cursor=to;state=cursor<targetBlock?'syncing':'live';
+   const end=Math.min(targetBlock,cursor+4000),iface=new library.Interface(['event Transfer(address indexed from,address indexed to,uint256 value)']);
+   while(cursor<end){
+    const to=Math.min(cursor+500,end);
+    const logs=await provider.getLogs({address:cfg.mintAddress,fromBlock:cursor+1,toBlock:to,topics:[iface.getEvent('Transfer').topicHash]});
+    logs.sort((a,b)=>a.blockNumber-b.blockNumber||a.index-b.index);
+    const events=logs.map(log=>iface.parseLog(log).args);
+    balances=applyTransfers(balances,events);cursor=to;state=cursor<targetBlock?'syncing':'live';render();
+   }
+   state=cursor<targetBlock?'syncing':'live';
   }catch{state='error';}
-  finally{provider?.destroy();running=false;render();resolveNames().catch(()=>{});}
+  finally{provider?.destroy();running=false;render();resolveNames().catch(()=>{});if(state==='syncing')setTimeout(refresh,100);}
  }
  $('holdersPrev').addEventListener('click',()=>{page=Math.max(0,page-1);render();resolveNames().catch(()=>{})});
  $('holdersNext').addEventListener('click',()=>{page++;render();resolveNames().catch(()=>{})});
