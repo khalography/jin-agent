@@ -13,19 +13,19 @@ let lang='zh',account=null,busy=false,provider,contract,ethers;
 const cfg=window.JIN_CONFIG,qty=document.querySelector('#quantity');
 let confirmedOpening=0,publicRefreshBusy=false,lastWalletViewKey="";
 const plannedOpening=Number(cfg.launchTime)||0;
-let eligibilityState=null,globalFreeRemaining=null,eligibilityRequest=0,eligibilityTimer;
+let eligibilityState=null,globalFreeRemaining=cfg.freeSupplyExhausted?0:null,eligibilityRequest=0,eligibilityTimer;
 const currentPlan=()=>mintPlan(qty.value,eligibilityState,globalFreeRemaining);
 Object.assign(en,{step3Copy:'Choose your total units. If eligible, one unit is free and the rest are paid.',quantity:'Total mint units',total:'Mint payment',connectMint:'Get mint prompt'});
 const say=(cn,eng)=>document.querySelector('#walletStatus').textContent=lang==='zh'?cn:eng;
-function setQuantity(value){qty.value=Math.max(1,Math.min(10,Math.trunc(Number(value)||1)));renderQuantity();}
+function setQuantity(value){const max=Math.max(1,currentPlan().max);qty.value=Math.max(1,Math.min(max,Math.trunc(Number(value)||1)));renderQuantity();}
 function renderQuantity(){
- const p=currentPlan(),cn=lang==='zh';qty.max=Math.max(1,p.max);
+ let p=currentPlan();const cn=lang==='zh';if(p.total>Math.max(1,p.max)){qty.value=Math.max(1,p.max);p=currentPlan();}qty.max=Math.max(1,p.max);
  document.querySelector('#receive').textContent=(p.total*1000).toLocaleString('en-US')+' $JIN';
  document.querySelector('#cost').textContent=p.cost;
  document.querySelector('#breakdownLabel').textContent=cn?'份额组合':'Allocation';
  document.querySelector('#breakdown').textContent=cn?`${p.free} 免费 + ${p.paid} 付费`:`${p.free} free + ${p.paid} paid`;
  document.querySelector('#minus').disabled=p.total<=1;document.querySelector('#plus').disabled=p.total>=p.max;
- document.querySelectorAll('[data-qty]').forEach(b=>{b.classList.toggle('selected',Number(b.dataset.qty)===p.total);b.disabled=false});
+ document.querySelectorAll('[data-qty]').forEach(b=>{const maxButton=b.textContent==='MAX';if(maxButton)b.dataset.qty=String(Math.max(1,p.max));b.classList.toggle('selected',Number(b.dataset.qty)===p.total);b.disabled=p.max===0||Number(b.dataset.qty)>p.max});
  document.querySelector('#quotaText').textContent=cn?'每个 ID：1 免费 + 最多 9 付费':'Per ID: 1 free + up to 9 paid';
  document.querySelector('#allocationNote').textContent=p.max===0?(cn?'此钱包或 ID 没有可用铸造额度。':'No mint quota is available for this wallet or ID.'):!p.valid?(cn?'所选份数超过当前剩余额度，请减少份数。':'Selection exceeds remaining quota. Reduce the quantity.'):
  eligibilityState?(cn?'已查询 ID 额度；Agent 将再次核验钱包归属与供应。':'ID quota checked; your agent will recheck wallet ownership and supply.'):
@@ -74,7 +74,7 @@ async function handleWallet(event){
 }
 document.querySelectorAll('.wallet').forEach(b=>b.addEventListener('click',handleWallet));
 if(window.ethereum?.on){window.ethereum.on('accountsChanged',accounts=>{account=accounts[0]||null;contract=null;eligibilityState=null;eligibilityRequest++;renderQuantity();checkEligibility();renderWallet();say('钱包账户已更新，请重新核验。','Wallet account updated. Reconnect to verify.');});window.ethereum.on('chainChanged',()=>{contract=null;eligibilityState=null;eligibilityRequest++;renderQuantity();say('网络已更改，请重新核验。','Network changed. Reconnect to verify.');});}
-setQuantity(10);
+setQuantity(9);
 
 function renderAgentPrompt(){
  const origin=location.origin,p=currentPlan(),n=p.total,cost=p.cost;const handle=document.querySelector('#agentHandle').value.trim().toLowerCase().replace(/\.ai$/,'');const identityHint=/^[a-z0-9]{3,15}$/.test(handle)?(lang==='zh'?`我的 Binance Agent ID 是 ${handle}.ai。`:`My Binance Agent ID is ${handle}.ai.`):'';
