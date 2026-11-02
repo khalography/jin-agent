@@ -1,0 +1,1 @@
+export const referralConfig=Object.freeze({url:'https://qrdbjykjdrlotofutzxw.supabase.co/functions/v1/referrals',anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFyZGJqeWtqZHJsb3RvZnV0enh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MTcyMDYsImV4cCI6MjEwOTE5MzIwNn0.vY8c0fmH4lPAO9pQprOiocbnAsaBQ3qCuqDx6vwChFI'});

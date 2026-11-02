@@ -5,7 +5,7 @@ Object.assign(en,{agentTitle:'Let your AI agent do the minting.',agentIntro:'Cop
 Object.assign(en,{poolMilestone:'Pool opens at 10,000 mints',poolMilestoneNote:'Counted in paid mint units',poolThreshold:'Pool opening threshold',poolMethod:'Paid units sold out',qPool:'When does the pool open?',aPool:'The pool opens after all 10,000 paid mint units are sold out. Free claims do not count toward this threshold. Pool opening is manual and is not triggered automatically by the mint contract. The trading pair address will be published after opening.'});
 Object.assign(en,{agentHandleLabel:'Binance Agent ID (.ai name)',agentHandleHint:'Enter the Agent ID claimed inside the Binance App'});
 Object.assign(en,{prelaunch:'TBA · MINT CLOSED',pendingData:'Reading on-chain status…',launchNote:'Contract deployed and source verified. Mint opening is TBA; minting is closed.',notDeployed:'Deployed · Mint closed',a1:'Wallets holding a .ai Agent ID claimed inside the Binance App can participate. Each mint checks name ownership and remaining quota on-chain.',a3:'The contract is deployed, but minting has not opened. Opening time is TBA. No mint transaction is submitted before opening.',verifiedContract:'Contract & verification',verifiedSource:'Verified source · Sourcify'});
-Object.assign(en,{marketSoon:'SOON',marketName:'Companion Market',holderLabel:'HOLDER BENEFITS',holderTitle:'Hold 10,000 $JIN',holderCopy:'Share a <b>25%</b> pool of mint revenue and a <b>10%</b> pool of our Companion Market revenue.',benefitNote:'Distribution mechanics and eligibility details will be announced.'});
+Object.assign(en,{marketSoon:'SOON',marketName:'Companion Market',holderLabel:'HOLDER BENEFITS',holderTitle:'Hold 9,000 $JIN',holderCopy:'Share a <b>25%</b> pool of mint revenue and a <b>10%</b> pool of our Companion Market revenue.',benefitNote:'Distribution mechanics and eligibility details will be announced.'});
 let mintReady=false;
 let shareStarted=false,shareConfirmed=false;
 const zh={};document.querySelectorAll('[data-t]').forEach(el=>zh[el.dataset.t]=el.innerHTML);
@@ -84,6 +84,7 @@ function renderAgentPrompt(){
  document.querySelector('#agentPrompt').value=lang==='zh'
  ?`请阅读 ${origin}/llms.txt，帮助我用当前连接的钱包在 BNB Smart Chain（Chain ID 56）参与「金小灵 JIN Agent」铸造。${identityHint}先检查上线状态、已验证合约、Agent ID 资格、剩余额度及供应。${action}合约地址只使用官方配置中已核验的地址；若尚未部署或信息缺失，立即停止，不要猜测地址或发起付款。每笔交易先模拟，向我展示操作、合约地址、金额与 Gas 估算，再让我在钱包中确认签名。不要索取私钥或助记词。`
  :`Read ${origin}/llms.txt and help me participate in the JIN Agent mint with my currently connected wallet on BNB Smart Chain (chain ID 56). ${identityHint} First check launch status, the verified contract, Agent ID eligibility, remaining quota, and supply. ${action} Use only the verified contract address in the official configuration. If the contract is not deployed or required information is missing, stop; do not guess an address or send payment. Simulate every transaction, show me the action, contract address, payment and estimated gas, then ask me to confirm in my wallet. Never request my private key or recovery phrase.`;
+ if(window.JIN_REFERRAL?.instructions)document.querySelector('#agentPrompt').value+=window.JIN_REFERRAL.instructions(lang);
  document.querySelector('#promptStatus').textContent='';
  renderShareGate();
 }
@@ -184,3 +185,5 @@ document.querySelector('#confirmShare').addEventListener('click',()=>{
 startMintTracker(window.JIN_CONFIG,()=>lang);
 
 import('./holders.js').then(({startHolders})=>startHolders(window.JIN_CONFIG,()=>lang)).catch(()=>{document.querySelector('#holdersStatus').textContent=lang==='zh'?'持有者列表暂时无法加载。':'Holder list is temporarily unavailable.';});
+
+import('./referrals.js').then(({startReferrals})=>{startReferrals(()=>lang);renderAgentPrompt();}).catch(()=>{});
