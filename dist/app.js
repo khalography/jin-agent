@@ -182,3 +182,5 @@ document.querySelector('#confirmShare').addEventListener('click',()=>{
 });
 
 startMintTracker(window.JIN_CONFIG,()=>lang);
+
+import('./holders.js').then(({startHolders})=>startHolders(window.JIN_CONFIG,()=>lang)).catch(()=>{document.querySelector('#holdersStatus').textContent=lang==='zh'?'持有者列表暂时无法加载。':'Holder list is temporarily unavailable.';});

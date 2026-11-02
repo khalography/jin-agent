@@ -1,1 +1,18 @@
-{"name":"jin-agent","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node scripts/test.mjs","compile":"node scripts/compile.mjs","preview":"python -m http.server 4173 --directory dist --bind 127.0.0.1"},"devDependencies":{"@openzeppelin/contracts":"5.4.0","solc":"0.8.30","ethers":"6.17.0","@ganache/core":"0.10.2"}}
+{
+  "name": "jin-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/test.mjs",
+    "compile": "node scripts/compile.mjs",
+    "preview": "python -m http.server 4173 --directory dist --bind 127.0.0.1",
+    "snapshot:holders": "node scripts/snapshot-holders.mjs"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "5.4.0",
+    "solc": "0.8.30",
+    "ethers": "6.17.0",
+    "@ganache/core": "0.10.2"
+  }
+}
