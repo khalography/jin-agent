@@ -74,7 +74,7 @@ async function handleWallet(event){
 }
 document.querySelectorAll('.wallet').forEach(b=>b.addEventListener('click',handleWallet));
 if(window.ethereum?.on){window.ethereum.on('accountsChanged',accounts=>{account=accounts[0]||null;contract=null;eligibilityState=null;eligibilityRequest++;renderQuantity();checkEligibility();renderWallet();say('钱包账户已更新，请重新核验。','Wallet account updated. Reconnect to verify.');});window.ethereum.on('chainChanged',()=>{contract=null;eligibilityState=null;eligibilityRequest++;renderQuantity();say('网络已更改，请重新核验。','Network changed. Reconnect to verify.');});}
-setQuantity(1);
+setQuantity(10);
 
 function renderAgentPrompt(){
  const origin=location.origin,p=currentPlan(),n=p.total,cost=p.cost;const handle=document.querySelector('#agentHandle').value.trim().toLowerCase().replace(/\.ai$/,'');const identityHint=/^[a-z0-9]{3,15}$/.test(handle)?(lang==='zh'?`我的 Binance Agent ID 是 ${handle}.ai。`:`My Binance Agent ID is ${handle}.ai.`):'';
