@@ -145,3 +145,5 @@ html[data-theme="dark"]{color-scheme:dark;--bg:#111410;--ink:#f2f0e7;--muted:#b1
 .referral-pages{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;color:var(--muted);margin-top:14px}.referral-pages button{border:1px solid var(--line);background:var(--white);color:var(--ink);padding:7px 10px;border-radius:5px;font-size:10px}.referral-incoming{margin:0 0 15px;padding:12px 14px;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.8;color:var(--muted)}
 
 .refer-header{display:inline-flex;align-items:center;justify-content:center;padding:11px 13px;border:1px solid #c6a43b;border-radius:8px;color:var(--ink);font-size:11px;white-space:nowrap;background:transparent}.refer-header:hover{background:var(--yellow);color:#262821}@media(min-width:1101px) and (max-width:1250px){header{padding-left:28px;padding-right:28px;gap:16px}header nav{gap:15px}.header-actions{gap:10px}}@media(max-width:640px){.refer-header{padding:10px;font-size:10px}.header-actions{gap:8px}}
+
+@media(max-width:640px){.header-actions{gap:7px}.header-actions .wallet.small{padding:10px 11px;font-size:10px}.refer-header{padding:10px 11px}}
