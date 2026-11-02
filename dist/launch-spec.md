@@ -16,9 +16,9 @@ Independent community project; not affiliated with or endorsed by Binance.
 - Paid units: 10,000. Fixed price: 0.002 BNB per unit, plus gas.
 - Free units: 4,444. Gas still applies.
 - Per identity: 1 free unit and up to 9 paid units.
-- Tokens per unit: 1,000 JIN (18 decimals).
-- Free mint token allocation: 4,444,000 JIN. Paid mint token allocation: 10,000,000 JIN.
-- Maximum mint allocation: 14,444,000 JIN. No team or liquidity allocation in this implementation.
+- Tokens per unit: 1,000 $JIN (18 decimals).
+- Free mint token allocation: 4,444,000 $JIN. Paid mint token allocation: 10,000,000 $JIN.
+- Maximum mint allocation: 14,444,000 $JIN. No team or liquidity allocation in this implementation.
 - Quotas follow a stable identity key, not the wallet address.
 - Pool opens at 10,000 mints / 10,000 份铸满开池. This means all 10,000 paid mint units; free claims do not count. Opening is manual, not an automatic mint-contract action. Pair address will be announced after opening. No fixed liquidity percentage, LP lock or burn is implemented.
 - No referral expansion, taxes, or automatic pool creation.

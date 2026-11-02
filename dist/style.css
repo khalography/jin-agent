@@ -116,3 +116,18 @@ html[data-theme="dark"]{color-scheme:dark;--bg:#111410;--ink:#f2f0e7;--muted:#b1
  .mint-tracker{min-height:280px}
  .tracker-list{max-height:260px}
 }
+
+/* Companion Market preview and planned holder benefits. */
+.companion-market:disabled{opacity:1;cursor:default;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:8px;padding:12px 13px;position:relative;white-space:nowrap;font-size:11px}
+.market-soon{position:absolute;right:7px;top:-9px;background:var(--yellow);color:#262821;padding:3px 6px;border-radius:4px;font-size:7px;font-weight:700;letter-spacing:.5px;line-height:1}
+.header-actions{gap:14px}header{gap:22px}nav{gap:22px}
+.holder-benefit{max-width:440px;background:var(--white);border:1px solid var(--line);border-left:3px solid var(--yellow);border-radius:10px;padding:16px 18px;margin-top:24px}
+.holder-benefit-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:11px}.holder-benefit-top>span{font-size:8px;letter-spacing:1.5px;color:var(--muted)}.holder-benefit-top>small{font-size:9px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:3px 7px}
+.holder-benefit>strong{font-size:19px;font-weight:600;letter-spacing:-.4px}.holder-benefit p{font-size:12px;line-height:1.85;color:var(--muted);margin:8px 0 9px}.holder-benefit b{color:#ac8420;font-weight:700}[data-theme="dark"] .holder-benefit b{color:var(--yellow)}.benefit-note{display:block;font-size:9px;line-height:1.6;color:var(--muted)}
+.mascot-colors{position:relative;z-index:1;width:100%;max-width:540px;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#fff1cc;animation:companion-backdrops 4s steps(1,end) infinite}
+.hero-art .mascot{display:block;width:100%;max-width:none;height:auto;mix-blend-mode:multiply;box-shadow:none;animation:companion-colors 4s steps(1,end) infinite}
+@keyframes companion-backdrops{0%,100%{background:#fff1cc}25%{background:#c6f1df}50%{background:#d1e4ff}75%{background:#efcefa}}
+@keyframes companion-colors{0%,100%{filter:hue-rotate(0deg)}25%{filter:hue-rotate(85deg)}50%{filter:hue-rotate(175deg)}75%{filter:hue-rotate(260deg)}}
+@media(max-width:1100px){header{flex-wrap:wrap;height:auto;min-height:100px;padding-top:20px;padding-bottom:18px;gap:18px}header nav{order:3;width:100%;justify-content:center}.hero-art .mascot-colors{max-width:460px}}
+@media(max-width:640px){header{padding:18px 16px;gap:18px 10px;min-height:112px}.header-actions{flex-wrap:wrap;justify-content:flex-end;gap:10px}.companion-market{order:4}.companion-market:disabled{padding:10px 12px;font-size:10px}header .brand{margin-right:auto}.header-actions{width:100%;justify-content:space-between}.hero-art .mascot-colors{width:350px;max-width:100%}.holder-benefit{padding:15px 16px;margin-top:22px}.holder-benefit>strong{font-size:18px}.holder-benefit p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.mascot-colors,.hero-art .mascot{animation:none}}

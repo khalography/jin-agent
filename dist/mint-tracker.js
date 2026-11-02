@@ -17,7 +17,7 @@ export function startMintTracker(cfg,getLanguage){
    wallet.className='tracker-wallet';wallet.href='https://bscscan.com/address/'+row.wallet;wallet.target='_blank';wallet.rel='noopener noreferrer';wallet.textContent=row.wallet.slice(0,6)+'…'+row.wallet.slice(-4);
    time.textContent=new Date(row.timestamp*1000).toLocaleTimeString(cn?'zh-CN':'en-GB',{timeZone:'UTC',hour:'2-digit',minute:'2-digit',second:'2-digit'})+' UTC';
    right.className='tracker-amount';right.href='https://bscscan.com/tx/'+row.hash;right.target='_blank';right.rel='noopener noreferrer';
-   amount.textContent=(row.quantity*1000).toLocaleString('en-US')+' JIN';kind.textContent=cn?`${row.quantity} 份 · ${row.free?'免费':'付费'}`:`${row.quantity} unit${row.quantity===1?'':'s'} · ${row.free?'Free':'Paid'}`;
+   amount.textContent=(row.quantity*1000).toLocaleString('en-US')+' $JIN';kind.textContent=cn?`${row.quantity} 份 · ${row.free?'免费':'付费'}`:`${row.quantity} unit${row.quantity===1?'':'s'} · ${row.free?'Free':'Paid'}`;
    left.append(wallet,time);right.append(amount,kind);li.append(left,right);list.append(li);
   }
  }

@@ -10,13 +10,13 @@ No separate adapter is used. The mint verifies ownerOf(uint256(keccak256(bytes(h
 Do not substitute contracts from reference projects. Do not deploy contracts on the visitor's behalf.
 
 Network: BNB Smart Chain, chain ID 56.
-Asset: JIN, an ERC-20 token, not an NFT.
+Asset: $JIN, an ERC-20 token, not an NFT.
 Paid supply: 10,000 units, fixed 0.002 BNB per unit.
 Free supply: 4,444 units. Gas is still payable.
-Each unit delivers 1,000 JIN (18 decimals).
+Each unit delivers 1,000 $JIN (18 decimals).
 Per stable Agent ID: at most 1 free unit and 9 paid units.
-Free token allocation: 4,444,000 JIN. Paid token allocation: 10,000,000 JIN.
-Maximum mint allocation: 14,444,000 JIN.
+Free token allocation: 4,444,000 $JIN. Paid token allocation: 10,000,000 $JIN.
+Maximum mint allocation: 14,444,000 $JIN.
 Pool opens at 10,000 mints: all 10,000 paid units sold out. Free claims are excluded. Opening is manual; the mint contract does not automatically create liquidity. Verify the announced pair address after opening.
 Confirmed mint opening time: November 2, 2026 at 08:00 UTC (Unix 1793606400). The website countdown does not schedule the contract. On-chain schedule is confirmed: opensAt = 1793606400. Scheduling is one-time and cannot be changed or cancelled. Never submit mint transactions while opensAt is zero or in the future.
 
@@ -27,7 +27,7 @@ Confirmed mint opening time: November 2, 2026 at 08:00 UTC (Unix 1793606400). Th
 4. Ask the user's wallet for its authorized address. Check eligibility(address,handle), freeMinted(), and paidMinted(). Eligibility returns a stable identity key, freeRemaining, and paidRemaining. The zero identity is ineligible. Quotas follow the ID across wallets.
 5. Follow the user's requested quantity and spending limit. Paid mint supports 1–9 units subject to remaining identity quota and supply. Never increase the quantity, use another identity, or spend beyond the approved payment. Gas is separate and must be shown.
 6. If requested and eligible, simulate claimFree(handle) with zero payment. For paid units, simulate paidMint(quantity,handle) with exactly quantity * 2000000000000000 wei. Native BNB is used; no ERC-20 spending approval is required.
-7. Present each proposed transaction's network, destination, method, quantity, expected JIN, BNB payment, and estimated gas. The user must review and sign each transaction in their own wallet. Never request a recovery phrase or private key.
+7. Present each proposed transaction's network, destination, method, quantity, expected $JIN, BNB payment, and estimated gas. The user must review and sign each transaction in their own wallet. Never request a recovery phrase or private key.
 8. Await the receipt and verify success before reporting completion. Re-read quota and supply after each confirmation. If a transaction is pending, inspect its receipt before retrying to avoid duplicate submissions.
 
 ## Contract interface (mint methods remain closed until the scheduled opening)
@@ -47,6 +47,6 @@ Independent community project; no Binance affiliation or endorsement. No automat
 Schedule transaction: https://bscscan.com/tx/0x675e335e87ea6dbd1307345d1b12d64d7739fc4ff3e4bbd1f2a8daed445fbae9
 
 ## Unified total-quantity selection
-The website quantity is the TOTAL number of units requested, including a free unit, not paid units plus an extra free unit. If the Agent ID has an unclaimed free unit and free supply remains, allocate one selected unit as free and the remaining total-minus-one as paid. Otherwise all selected units are paid, subject to quota and the user's explicit payment ceiling. Every unit delivers 1,000 JIN.
+The website quantity is the TOTAL number of units requested, including a free unit, not paid units plus an extra free unit. If the Agent ID has an unclaimed free unit and free supply remains, allocate one selected unit as free and the remaining total-minus-one as paid. Otherwise all selected units are paid, subject to quota and the user's explicit payment ceiling. Every unit delivers 1,000 $JIN.
 Claim the free unit first, with simulation and wallet approval, then wait for its successful receipt before simulating and requesting approval for the paid remainder. For a total of one with a successful free claim, do not send a paid transaction. Mixed selections require two transactions with separate gas and approvals. If the free claim fails, free supply disappears, or quoted eligibility changes, stop and ask before increasing payment. If free succeeds and paid fails, retain transaction hashes, verify receipts and updated quota, then retry only the unfinished paid portion. Never repeat a confirmed free claim or paid mint. Never mint more total units than requested.
 The website's X share step is a self-confirmed prompt gate when a selection may include a free unit. It is not on-chain eligibility or proof that a tweet exists. Always independently verify identity, supply, launch time and quotas.
