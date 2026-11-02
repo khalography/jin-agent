@@ -6,6 +6,7 @@ Object.assign(en,{poolMilestone:'Pool opens at 10,000 mints',poolMilestoneNote:'
 Object.assign(en,{agentHandleLabel:'Binance Agent ID (.ai name)',agentHandleHint:'Enter the Agent ID claimed inside the Binance App'});
 Object.assign(en,{prelaunch:'TBA · MINT CLOSED',pendingData:'Reading on-chain status…',launchNote:'Contract deployed and source verified. Mint opening is TBA; minting is closed.',notDeployed:'Deployed · Mint closed',a1:'Wallets holding a .ai Agent ID claimed inside the Binance App can participate. Each mint checks name ownership and remaining quota on-chain.',a3:'The contract is deployed, but minting has not opened. Opening time is TBA. No mint transaction is submitted before opening.',verifiedContract:'Contract & verification',verifiedSource:'Verified source · Sourcify'});
 Object.assign(en,{marketSoon:'SOON',marketName:'Companion Market',holderLabel:'HOLDER BENEFITS',holderTitle:'Hold 9,000 $JIN',holderCopy:'Share a <b>25%</b> pool of mint revenue and a <b>10%</b> pool of our Companion Market revenue.',benefitNote:'Distribution mechanics and eligibility details will be announced.'});
+Object.assign(en,{referEarn:'Refer to earn'});
 let mintReady=false;
 let shareStarted=false,shareConfirmed=false;
 const zh={};document.querySelectorAll('[data-t]').forEach(el=>zh[el.dataset.t]=el.innerHTML);
